@@ -7,20 +7,22 @@ const ENDPOINT_URL =
   "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
 
 const PokemonProvider = ({ children }) => {
-  const [pokemons, setPokemons] = useState(null);
+  const [allPokemons, setAllPokemons] = useState([]);
+  const [pokemonsToBeShown, setPokemonsToBeShown] = useState([]);
 
   const handlePokemons = (pokemons) => {
-    setPokemons(pokemons);
+    setPokemonsToBeShown(pokemons);
   };
 
   useEffect(() => {
-    getPokemons();
+    getAllPokemons();
   }, []);
 
-  const getPokemons = async () => {
+  const getAllPokemons = async () => {
     try {
       const response = await axios.get(ENDPOINT_URL);
-      setPokemons(response.data.pokemon);
+      setAllPokemons(response.data.pokemon);
+      setPokemonsToBeShown(response.data.pokemon);
     } catch (error) {
       console.log({ error });
     }
@@ -29,7 +31,8 @@ const PokemonProvider = ({ children }) => {
   return (
     <PokemonContext.Provider
       value={{
-        pokemons,
+        allPokemons,
+        pokemonsToBeShown,
         handlePokemons,
       }}
     >

@@ -14,11 +14,11 @@ const Section = styled.section`
   margin-top: 70px;
   text-align: center;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: #4b4452;
   span {
     font-size: 1.6rem;
     font-weight: 500;
-    color: #313131f2;
+    color: #ffffff;
 
     @media (max-width: 768px) {
      font-size: 1.4rem;

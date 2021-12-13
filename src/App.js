@@ -15,4 +15,4 @@ const App = () => {
   return <Fragment>{routes}</Fragment>;
 };
 
-export default App;
+export { App };

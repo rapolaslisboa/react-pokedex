@@ -1,20 +1,39 @@
 import styled from "styled-components";
 import { usePokemon } from "../../../../../../hooks/usePokemon";
 import { Card } from "./components/Card";
+import { useState } from "react";
+import { Pagination } from "../../../../../../components/Pagination";
 
 const List = () => {
-  const { pokemons } = usePokemon();
+  const { pokemonsToBeShown } = usePokemon();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonsPerPage] = useState(12);
+
+  const indexOfLastPost = currentPage * pokemonsPerPage;
+  const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
+  const currentPokemons =
+    pokemonsToBeShown &&
+    pokemonsToBeShown.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Section>
-      {pokemons && (
+      {pokemonsToBeShown && (
         <CardList>
-          {pokemons.map((pokemon) => (
-            <Card pokemon={pokemon} />
+          {currentPokemons.map((pokemon) => (
+            <Card pokemon={pokemon} key={pokemon.id} />
           ))}
         </CardList>
       )}
-      {!pokemons && <Text>Nenhum Pokémon corresponde à sua pesquisa!</Text>}
+      {!pokemonsToBeShown && (
+        <Text>Nenhum Pokémon corresponde à sua pesquisa!</Text>
+      )}
+      <Pagination
+        pokemonsPerPage={pokemonsPerPage}
+        totalPokemons={pokemonsToBeShown.length}
+        paginate={paginate}
+      />
     </Section>
   );
 };
@@ -22,9 +41,7 @@ const List = () => {
 const Section = styled.section`
   height: fit-content;
   padding: 48px 16px;
-  text-align: center;
   overflow: hidden;
-  background-color: #ffffff;
 `;
 
 const Text = styled.span`
@@ -38,13 +55,23 @@ const Text = styled.span`
 `;
 
 const CardList = styled.div`
-  display: flex;
-  place-content: center;
-  flex-wrap: wrap;
-  max-width: 1500px;
-  grid-column-gap: 45px;
-  grid-row-gap: 45px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 35px;
+  justify-items: center;
+  padding: 0 40px;
+
+  @media (max-width: 1400px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export { List };

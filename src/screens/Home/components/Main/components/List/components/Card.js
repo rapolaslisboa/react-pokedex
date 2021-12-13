@@ -3,47 +3,90 @@ import { TypeStyle } from "../../../../../../../utils/TypeStyle";
 
 const Card = ({ pokemon }) => {
   return (
-    <CardLayout>
+    <Layout>
       <Figure>
         <img src={pokemon.img} alt={pokemon.name} loading="lazy" />
       </Figure>
-      <span>Nº #{pokemon.num}</span>
-      <h3>{pokemon.name}</h3>
-      {pokemon.type.map((type) => (
-        <div style={TypeStyle[type]}>
-          <span>{type}</span>
-        </div>
-      ))}
-    </CardLayout>
+      <Content>
+        <span>Nº {pokemon.num}</span>
+        <span>{pokemon.name}</span>
+        <TypesContainer>
+          {pokemon.type.map((type) => (
+            <Type style={TypeStyle[type]} key={type}>
+              <font>{type}</font>
+            </Type>
+          ))}
+        </TypesContainer>
+      </Content>
+    </Layout>
   );
 };
 
-const CardLayout = styled.div`
+const Layout = styled.div`
   width: 300px;
   height: 350px;
   cursor: pointer;
   position: relative;
   top: 0;
-  box-shadow: 0 8px 30px -12px rgb(0 0 0 / 30%);
+  border-radius: 5px;
+  background-color: #ffffff;
 
   &:hover {
     top: -6px;
     filter: brightness(0.95);
-    box-shadow: 0px 4px 8px rgb(38 38 38 / 20%);
     transition: all 0.2s ease-out;
   }
 `;
 
 const Figure = styled.figure`
-  background: #f2f2f291;
+  display: flex;
+  justify-content: center;
+  background: #f2f2f2fc;
   width: 100%;
+  align-items: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   margin: 0;
+  height: 220px;
 
   img {
-    height: 180px;
+    height: 160px;
   }
+`;
+
+const Content = styled.div`
+  margin-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  span {
+    display: block;
+  }
+
+  span:nth-child(1) {
+    color: #919191;
+    font-size: 1rem;
+  }
+
+  span:nth-child(2) {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: #313131;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+`;
+
+const TypesContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+`;
+
+const Type = styled.div`
+  width: 100%;
+  border-radius: 5px;
+  text-align: center;
 `;
 
 export { Card };
