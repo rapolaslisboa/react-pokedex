@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Pagination = ({ pokemonsPerPage, totalPokemons, paginate }) => {
+const Pagination = ({
+  currentPage,
+  pokemonsPerPage,
+  totalPokemons,
+  paginate,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPokemons / pokemonsPerPage); i++) {
@@ -9,39 +14,44 @@ const Pagination = ({ pokemonsPerPage, totalPokemons, paginate }) => {
   }
 
   return (
-    <Nav>
+    <div style={{ marginTop: 100 }}>
       <List>
         {pageNumbers.map((number) => (
           <li key={number}>
-            <button onClick={() => paginate(number)}>{number}</button>
+            <Button
+              currentPage={currentPage}
+              number={number}
+              aria-label="page-number"
+              onClick={() => paginate(number)}
+            >
+              {number}
+            </Button>
           </li>
         ))}
       </List>
-    </Nav>
+    </div>
   );
 };
 
-const Nav = styled.nav`
-  margin-top: 100px;
+const Button = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  border: 1px solid #4b4452;
+  background-color: ${(props) =>
+    props.currentPage === 1 && props.number === 1 ? "#4b4452" : "#ffffff"};
+  color: ${(props) =>
+    props.currentPage === 1 && props.number === 1 ? "#ffffff" : "#4b4452"};
+  cursor: pointer;
 
-  button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 0;
-    border: 2px solid #4b4452;
-    background-color: #ffffff;
-    color: #464444;
-    cursor: pointer;
-
-    &:hover,
-    &:visited,
-    &:focus,
-    &:active {
-      background-color: #4b4452;
-      color: #ffffff;
-      border: 2px solid #4b4452;
-    }
+  &:hover,
+  &:visited,
+  &:focus,
+  &:active {
+    background-color: #4b4452;
+    color: #ffffff;
+    border: 1px solid #4b4452;
   }
 `;
 

@@ -19,19 +19,22 @@ const List = () => {
 
   return (
     <Section>
-      {pokemonsToBeShown && (
+      {pokemonsToBeShown.length > 0 && (
         <CardList>
           {currentPokemons.map((pokemon) => (
             <Card pokemon={pokemon} key={pokemon.id} />
           ))}
         </CardList>
       )}
-      {!pokemonsToBeShown && (
-        <Text>Nenhum Pokémon corresponde à sua pesquisa!</Text>
+      {pokemonsToBeShown.length === 0 && (
+        <div style={{ textAlign: "center" }}>
+          <Text>Nenhum Pokémon corresponde à sua pesquisa!</Text>
+        </div>
       )}
       <Pagination
         pokemonsPerPage={pokemonsPerPage}
         totalPokemons={pokemonsToBeShown.length}
+        currentPage={currentPage}
         paginate={paginate}
       />
     </Section>
@@ -40,7 +43,7 @@ const List = () => {
 
 const Section = styled.section`
   height: fit-content;
-  padding: 48px 16px;
+  padding: 64px 16px;
   overflow: auto;
 `;
 
