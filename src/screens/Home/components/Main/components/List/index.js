@@ -41,7 +41,7 @@ const List = () => {
 const Section = styled.section`
   height: fit-content;
   padding: 48px 16px;
-  overflow: hidden;
+  overflow: auto;
 `;
 
 const Text = styled.span`

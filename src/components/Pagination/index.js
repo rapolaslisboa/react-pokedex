@@ -29,7 +29,7 @@ const Nav = styled.nav`
     height: 40px;
     border-radius: 50%;
     border: 0;
-    border: 2px solid #ac556c;
+    border: 2px solid #4b4452;
     background-color: #ffffff;
     color: #464444;
     cursor: pointer;
@@ -38,9 +38,9 @@ const Nav = styled.nav`
     &:visited,
     &:focus,
     &:active {
-      background-color: #ac556c;
+      background-color: #4b4452;
       color: #ffffff;
-      border: 2px solid #ac556c;
+      border: 2px solid #4b4452;
     }
   }
 `;

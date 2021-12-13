@@ -30,7 +30,9 @@ const Logo = styled.img`
   height: 50px;
 
   @media (max-width: 768px) {
-    height: 40px;
+    max-height: 40px;
+    max-width: 148px;
+    width: 100%;
   }
 `;
 

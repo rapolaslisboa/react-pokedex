@@ -36,6 +36,10 @@ const Layout = styled.div`
     filter: brightness(0.95);
     transition: all 0.2s ease-out;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Figure = styled.figure`
