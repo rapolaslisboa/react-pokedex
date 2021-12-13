@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, createRef } from "react";
 import { usePokemon } from "../../../../../../hooks/usePokemon";
 import {
   Input,
@@ -13,6 +13,7 @@ const Search = () => {
   const [searchText, setSearchText] = useState("");
   const { handlePokemons, allPokemons } = usePokemon();
   const [dropdownContent, setDropdownContent] = useState([]);
+  const dropdownRef = createRef();
 
   const filterByNameOrNumber = (toBeCompared) => {
     return allPokemons.filter(
@@ -71,6 +72,21 @@ const Search = () => {
     handlePokemons(singlePokemon);
   };
 
+  useEffect(() => {
+    eventOnClickOutside();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const eventOnClickOutside = () => {
+    document.addEventListener("click", function (event) {
+      var isClickOnElement =
+        dropdownRef.current && dropdownRef.current.contains(event.target);
+      if (!isClickOnElement) {
+        setDropdownContent([]);
+      }
+    });
+  };
+
   return (
     <Section>
       <span>Pesquise por Pokémons da primeira geração!</span>
@@ -106,7 +122,7 @@ const Search = () => {
               <i className="fa fa-search" />
             </SearchButton>
             {dropdownContent.length !== 0 && (
-              <Dropdown>
+              <Dropdown ref={dropdownRef}>
                 {dropdownContent.slice(0, 15).map((pokemon, index) => (
                   <div key={index} onClick={() => filterPokemon(pokemon)}>
                     {pokemon.name} ({pokemon.num})

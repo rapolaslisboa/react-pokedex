@@ -38,16 +38,19 @@ export const Input = styled.input`
   outline: none;
 `;
 
-export const ClearButton = styled.button`
-  width: 50px;
+export const Button = styled.button`
+  width: 60px;
   height: 60px;
-  border: 1px solid #ff3a3ac9;
-  background: #ff3a3ac9;
   text-align: center;
-  color: #fff;
   cursor: pointer;
   font-size: 20px;
   outline: none;
+`;
+
+export const ClearButton = styled(Button)`
+  border: 1px solid #ff3a3ac9;
+  background: #ff3a3ac9;
+  color: #fff;
 
   &:hover,
   &:visited,
@@ -58,18 +61,12 @@ export const ClearButton = styled.button`
   }
 `;
 
-export const SearchButton = styled.button`
-  width: 50px;
-  height: 60px;
+export const SearchButton = styled(Button)`
   border: 1px solid #7c7777;
   background: #7c7777;
-  text-align: center;
   color: #fff;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  cursor: pointer;
-  font-size: 20px;
-  outline: none;
 
   &:hover,
   &:visited,

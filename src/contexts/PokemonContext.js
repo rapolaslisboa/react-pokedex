@@ -8,7 +8,7 @@ const ENDPOINT_URL =
 
 const PokemonProvider = ({ children }) => {
   // Utilizando dois arrays para facilitar a filtragem no processo de busca e o fluxo dos estados,
-  // considerando que são apenas (151 pokémons), que no "endpoint" utilizado 
+  // considerando que são apenas (151 pokémons), que no "endpoint" utilizado
   // não tem a opção de passar query para filtrar.
   // Esse tipo de approach não é recomendável quando se possui um grande número de dados
   // ou se a propriedade da imagem dos objetos do array armazena o base64 da imagem e não a URL, por exemplo.
