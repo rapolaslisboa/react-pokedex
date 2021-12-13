@@ -1,39 +1,46 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Pagination } from "../../../../../../components/Pagination";
 import { usePokemon } from "../../../../../../hooks/usePokemon";
 import { Card } from "./components/Card";
-import { useState } from "react";
-import { Pagination } from "../../../../../../components/Pagination";
 
 const List = () => {
-  const { pokemonsToBeShown } = usePokemon();
+  const { pokemons, handlePokemons, getAllPokemons } = usePokemon();
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(12);
 
   const indexOfLastPost = currentPage * pokemonsPerPage;
   const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
   const currentPokemons =
-    pokemonsToBeShown &&
-    pokemonsToBeShown.slice(indexOfFirstPost, indexOfLastPost);
+    pokemons && pokemons.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  useEffect(() => {
+    (async () => {
+      const pokemons = await getAllPokemons();
+      handlePokemons(pokemons);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Section>
-      {pokemonsToBeShown.length > 0 && (
+      {pokemons.length > 0 && (
         <CardList>
           {currentPokemons.map((pokemon) => (
             <Card pokemon={pokemon} key={pokemon.id} />
           ))}
         </CardList>
       )}
-      {pokemonsToBeShown.length === 0 && (
+      {pokemons.length === 0 && (
         <div style={{ textAlign: "center" }}>
           <Text>Nenhum Pokémon corresponde à sua pesquisa!</Text>
         </div>
       )}
       <Pagination
         pokemonsPerPage={pokemonsPerPage}
-        totalPokemons={pokemonsToBeShown.length}
+        totalPokemons={pokemons.length}
         currentPage={currentPage}
         paginate={paginate}
       />

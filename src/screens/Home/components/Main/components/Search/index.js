@@ -11,7 +11,8 @@ import {
 
 const Search = () => {
   const [searchText, setSearchText] = useState("");
-  const { handlePokemons, allPokemons } = usePokemon();
+  const { handlePokemons, getAllPokemons } = usePokemon();
+  const [allPokemons, setAllPokemons] = useState([]);
   const [dropdownContent, setDropdownContent] = useState([]);
   const dropdownRef = createRef();
 
@@ -73,8 +74,12 @@ const Search = () => {
   };
 
   useEffect(() => {
+    (async () => {
+      const pokemons = await getAllPokemons();
+      setAllPokemons(pokemons);
+    })();
     eventOnClickOutside();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const eventOnClickOutside = () => {
